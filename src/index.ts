@@ -4,6 +4,7 @@ import { type Preset } from '@pandacss/types'
 import { keyframes } from './keyframes'
 
 const preset: Preset = definePreset({
+  name: '@slurpyb/preset-animate-css',
   theme: {
     extend: {
       keyframes,
