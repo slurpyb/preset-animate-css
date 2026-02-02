@@ -2,6 +2,7 @@ import { definePreset } from '@pandacss/dev'
 import { type Preset } from '@pandacss/types'
 
 import { keyframes } from './keyframes'
+import { animationUtilities } from './utilities'
 
 const preset: Preset = definePreset({
   name: '@slurpyb/preset-animate-css',
@@ -12,6 +13,7 @@ const preset: Preset = definePreset({
   },
   utilities: {
     extend: {
+      ...animationUtilities.extend,
       animationName: {
         className: 'animation-name',
         values: 'animationName',
@@ -49,3 +51,11 @@ const preset: Preset = definePreset({
 export default preset
 
 export { keyframes }
+export {
+  animationUtilities,
+  animationPresets,
+  entranceAnimations,
+  exitAnimations,
+  attentionAnimations,
+  animationSpeeds,
+} from "./utilities";

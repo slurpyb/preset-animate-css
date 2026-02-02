@@ -161,8 +161,98 @@ The preset includes all Animate.css animations:
 
 ### Custom Utilities
 
-#### `animationName`
-Applies animation with defaults:
+#### Popular Animation Utilities
+
+The preset includes semantic utilities that encapsulate common animation patterns:
+
+##### `animate`
+Main utility with popular animation presets:
+
+```tsx
+<div className={css({ animate: 'fadeIn' })}>Fades in</div>
+<div className={css({ animate: 'slideInUp' })}>Slides in from bottom</div>
+<div className={css({ animate: 'bounce' })}>Bounces</div>
+```
+
+**Available presets**: fadeIn, fadeOut, slideInUp, slideInDown, bounceIn, zoomIn, rotateIn, flip, pulse, shake, tada, and 60+ more
+
+##### `animateIn` / `animateOut`
+Entrance and exit animations:
+
+```tsx
+<div className={css({ animateIn: 'fadeInUp' })}>
+  Entrance animation
+</div>
+
+<div className={css({ animateOut: 'fadeOut' })}>
+  Exit animation (opacity: 0 applied)
+</div>
+```
+
+**Entrance animations**: fadeInUp, slideInLeft, bounceIn, zoomIn, rotateIn, flipInX  
+**Exit animations**: fadeOut, slideOutRight, bounceOut, zoomOut, rotateOut, flipOutY
+
+##### `animateOnHover`
+Hover-triggered animations:
+
+```tsx
+<button className={css({ animateOnHover: 'pulse' })}>
+  Pulses on hover
+</button>
+
+<div className={css({ animateOnHover: 'bounce' })}>
+  Bounces on hover
+</div>
+```
+
+**Available**: bounce, pulse, flash, shake, shakeX, shakeY, headShake, swing, tada, wobble, jello, heartBeat, rubberBand
+
+##### `animateInfinite`
+Infinite looping animations:
+
+```tsx
+<div className={css({ animateInfinite: 'pulse' })}>
+  Pulses infinitely
+</div>
+
+<div className={css({ animateInfinite: 'bounce' })}>
+  Bounces infinitely
+</div>
+```
+
+##### `animateSpeed`
+Animation duration presets:
+
+```tsx
+<div className={css({ animate: 'fadeIn', animateSpeed: 'fast' })}>
+  Fast animation (500ms)
+</div>
+```
+
+**Available speeds**: slower (3s), slow (2s), normal (1s), fast (500ms), faster (300ms)
+
+##### `animateDelay`
+Animation delay:
+
+```tsx
+<div className={css({ animate: 'fadeIn', animateDelay: '500ms' })}>
+  Delayed animation
+</div>
+```
+
+##### `animateCount`
+Animation iteration count:
+
+```tsx
+<div className={css({ animate: 'bounce', animateCount: '3' })}>
+  Bounces 3 times
+</div>
+```
+
+#### Low-Level Utilities
+
+##### `animationName`
+Direct keyframe access with defaults:
 - **Duration**: 1s
 - **Fill mode**: both
 - **Accessibility**: Respects `prefers-reduced-motion` (reduces to 1ms, single iteration)
@@ -173,7 +263,7 @@ Applies animation with defaults:
 </div>
 ```
 
-#### `animationRepeat`
+##### `animationRepeat`
 Controls animation iteration count:
 
 ```tsx
@@ -191,7 +281,9 @@ Controls animation iteration count:
 
 ---
 
-## Usage Example
+## Usage Examples
+
+### Basic Usage
 
 ```ts
 import { defineConfig } from '@pandacss/dev'
@@ -202,16 +294,92 @@ export default defineConfig({
 })
 ```
 
+### Simple Animations
+
 ```tsx
 import { css } from '../styled-system/css'
 
-function AnimatedComponent() {
+function Card() {
+  return (
+    <div className={css({ animate: 'fadeInUp' })}>
+      I fade in from bottom!
+    </div>
+  )
+}
+```
+
+### Entrance/Exit Animations
+
+```tsx
+function Modal({ isOpen }) {
+  return (
+    <div className={css({ 
+      animateIn: isOpen ? 'zoomIn' : undefined,
+      animateOut: !isOpen ? 'zoomOut' : undefined
+    })}>
+      Modal content
+    </div>
+  )
+}
+```
+
+### Hover Interactions
+
+```tsx
+function Button() {
+  return (
+    <button className={css({ 
+      animateOnHover: 'pulse',
+      animateSpeed: 'fast'
+    })}>
+      Hover me!
+    </button>
+  )
+}
+```
+
+### Infinite Animations
+
+```tsx
+function LoadingSpinner() {
+  return (
+    <div className={css({ 
+      animateInfinite: 'bounce',
+      animateSpeed: 'slower'
+    })}>
+      Loading...
+    </div>
+  )
+}
+```
+
+### Combining Utilities
+
+```tsx
+function Notification() {
+  return (
+    <div className={css({ 
+      animate: 'slideInRight',
+      animateSpeed: 'fast',
+      animateDelay: '200ms'
+    })}>
+      New notification!
+    </div>
+  )
+}
+```
+
+### Low-Level Control
+
+```tsx
+function CustomAnimation() {
   return (
     <div className={css({ 
       animationName: 'fadeInUp',
-      animationRepeat: '1'
+      animationRepeat: '3',
+      animationSpeed: 'slow'
     })}>
-      I fade in from bottom!
+      Fades in 3 times slowly
     </div>
   )
 }
@@ -226,3 +394,4 @@ function AnimatedComponent() {
 - **Accessibility-first**: Respects motion preferences
 - **Type-safe**: Full TypeScript support
 - **Zero configuration**: Works out of the box
+- **Semantic utilities**: Popular use cases encapsulated
